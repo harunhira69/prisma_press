@@ -19,3 +19,9 @@ enum CommnetStatus {
   APPROVED
   REJECT
 }
+
+enum SubscriptionStatus{
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
