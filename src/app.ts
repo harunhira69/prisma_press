@@ -6,6 +6,11 @@ import httpStatus from "http-status";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
 import { userRouter } from "./modules/user/user.route";
+import { loginRouter } from "./modules/auth/auth.route";
+import { postRouter } from "./modules/posts/posts.route";
+import { commentsRoute } from "./modules/comments/comments.route";
+import { notFound } from "./middleware/notFounde";
+import { globalErrorHandler } from "./middleware/globalErrorHandler";
 const app: Application = express();
 
 
@@ -25,6 +30,12 @@ app.get("/",(req:Request,res:Response)=>{
 
 
 app.use("/api/users",userRouter)
+app.use("/api/auth",loginRouter)
+app.use("/api/posts",postRouter)
+app.use("/api/comments",commentsRoute)
+
+app.use(notFound)
+app.use(globalErrorHandler)
 
 export default app
 
