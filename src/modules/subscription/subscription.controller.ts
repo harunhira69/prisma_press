@@ -18,6 +18,21 @@ const createCheckOut = catchAsync(async(req:Request,res:Response,next:NextFuncti
     })
 })
 
+
+const handleStripeWebhook = catchAsync(async (req, res) => {
+
+  const signature = req.headers["stripe-signature"] as string;
+
+  await subscriptionService.handleStripeWebhook(
+    req.body,
+    signature
+  );
+
+  res.status(200).send({
+    received: true,
+  });
+});
+
 export const subscriptionController = {
-    createCheckOut
+    createCheckOut,handleStripeWebhook
 }
